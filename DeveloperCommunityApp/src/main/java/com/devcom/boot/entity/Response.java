@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="Response")
@@ -35,13 +37,13 @@ public class Response {
 
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="fk_dev_id")
+	@JsonIgnore
 	private Developer developer;
 
 	@ManyToOne
 	@JoinColumn(name = "fk_feed_id")
+	@JsonIgnore
 	private Feed feed;
-
-
 
 	public int getRespId() {
 		return respId;

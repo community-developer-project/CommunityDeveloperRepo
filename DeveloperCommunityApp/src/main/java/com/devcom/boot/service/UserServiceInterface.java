@@ -11,5 +11,6 @@ import com.devcom.boot.entity.User;
 public interface UserServiceInterface {
 
 	List<User>getAllUsers();
+	
 	Optional<User>  getUserById(String UserId);
 }

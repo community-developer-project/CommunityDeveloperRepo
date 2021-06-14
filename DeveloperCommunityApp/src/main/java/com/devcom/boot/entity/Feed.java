@@ -1,7 +1,7 @@
 package com.devcom.boot.entity;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,10 +13,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="Feed")
-public class Feed {
+public class Feed{
 
 	@Id
 	@Column(name="feed_id")
@@ -28,8 +34,14 @@ public class Feed {
 	@Column(name="feed_date")
 	private LocalDate feedDate;
 
-	@Column(name="feed_time")
-	private LocalTime feedTime;
+	@Column(name="feed_time",updatable=false)
+	@CreationTimestamp
+	private LocalDateTime feedTime;
+	
+	
+	@UpdateTimestamp
+	@Column(name="feed_updation_time")
+    private LocalDateTime updateDateTime;
 
 	@Column(name="topic")
 	private String topic;
@@ -37,12 +49,16 @@ public class Feed {
 	@Column(name="relevance")
 	private int  relevance;
 
+	
+	
 	@ManyToOne
 	@JoinColumn(name = "fk_dev_id")
+	@JsonBackReference
 	private Developer developer;
 
 
 	@OneToMany(mappedBy="feed",cascade=CascadeType.ALL)
+	@JsonIgnore
 	private  List<Response> responseList;
 
 	@Column(name = "total_comments")
@@ -66,10 +82,11 @@ public class Feed {
 	public void setFeedDate(LocalDate feedDate) {
 		this.feedDate = feedDate;
 	}
-	public LocalTime getFeedTime() {
+	
+	public LocalDateTime getFeedTime() {
 		return feedTime;
 	}
-	public void setFeedTime(LocalTime feedTime) {
+	public void setFeedTime(LocalDateTime feedTime) {
 		this.feedTime = feedTime;
 	}
 	public String getTopic() {
@@ -84,6 +101,7 @@ public class Feed {
 	public void setRelevance(int relevance) {
 		this.relevance = relevance;
 	}
+	
 	public Developer getDeveloper() {
 		return developer;
 	}
@@ -101,6 +119,24 @@ public class Feed {
 	}
 	public void setTotalComments(int totalComments) {
 		this.totalComments = totalComments;
+	}
+	
+	
+	
+	
+	
+	
+	public LocalDateTime getUpdateDateTime() {
+		return updateDateTime;
+	}
+	public void setUpdateDateTime(LocalDateTime updateDateTime) {
+		this.updateDateTime = updateDateTime;
+	}
+	@Override
+	public String toString() {
+		return "Feed [feedId=" + feedId + ", query=" + query + ", feedDate=" + feedDate + ", feedTime=" + feedTime
+				+ ", topic=" + topic + ", relevance=" + relevance + ", developer=" + developer + ", responseList="
+				+ responseList + ", totalComments=" + totalComments + "]";
 	}
 
 

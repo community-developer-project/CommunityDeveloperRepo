@@ -1,5 +1,6 @@
 package com.devcom.boot.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -13,10 +14,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="Developer")
-public class Developer {
+public class Developer implements Serializable {
 
 	@Column(name="dev_id")
 	@Id
@@ -38,7 +41,7 @@ public class Developer {
 	@JoinColumn(name="fk_user_id")
 	private User user;
 
-
+	
 	@OneToMany(mappedBy="developer",cascade=CascadeType.ALL)
 	private  List<Feed> feedList;
 
@@ -46,6 +49,9 @@ public class Developer {
 	private Boolean isVerified;
 	@Column(name="is_blocked")
 	private Boolean isBlocked;
+	
+	
+	
 	public int getDevId() {
 		return devId;
 	}
@@ -94,6 +100,7 @@ public class Developer {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
 	public List<Feed> getFeedList() {
 		return feedList;
 	}
