@@ -2,19 +2,15 @@ package com.devcom.boot.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.devcom.boot.entity.Feed;
-import com.devcom.boot.entity.User;
 import com.devcom.boot.exception.FeedNotFoundException;
 import com.devcom.boot.repository.FeedRepository;
 
 
 @Service
 public class FeedServiceImpl implements FeedServiceInterface {
-
 
 	@Autowired 
 	FeedRepository feedRepo;
@@ -31,10 +27,9 @@ public class FeedServiceImpl implements FeedServiceInterface {
 	@Override
 	public Optional<Feed> saveFeed(Feed feed) {
 		Optional<Feed> existing = feedRepo.findById(feed.getFeedId());
+		
 		if(!existing.isPresent()) {
-
 			feedRepo.save(feed);
-
 			return existing;
 		}
 		throw new FeedNotFoundException("Feed With Id "+ feed.getFeedId() +" exists already");
@@ -72,6 +67,13 @@ public class FeedServiceImpl implements FeedServiceInterface {
 	public List<Feed> getFeedByTopic(String topic) {
 		List<Feed> listOfFeedByTopic = (List<Feed>) feedRepo.findAllByTopic(topic);
 		return listOfFeedByTopic;
+	}
+
+	@Override
+	public List<Feed> getFeedByKeyword(String keyword) {
+		List<Feed> listOfFeedByKeyword = (List<Feed>) feedRepo.findByKeyword(keyword);
+		return listOfFeedByKeyword;
+		
 	}
 
 

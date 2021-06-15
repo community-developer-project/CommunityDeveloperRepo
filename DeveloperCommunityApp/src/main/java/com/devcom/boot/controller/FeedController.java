@@ -54,6 +54,19 @@ public class FeedController {
 	}
 	
 	
+	
+	
+	
+	@GetMapping("/keyword/{keyword}")
+	public ResponseEntity<?> getFeedByKeyword(@PathVariable("keyword") String keyword){
+		List<Feed> listOfKeyword = (List<Feed>) service.getFeedByKeyword(keyword);
+		
+		return new ResponseEntity<Object>(listOfKeyword,HttpStatus.OK);
+	}
+	
+	
+	
+	
 	@DeleteMapping("{feedId}")
 	public ResponseEntity<String> deleteFeed(@PathVariable("feedId") int feedId){
 		 service.deleteFeedById(feedId);

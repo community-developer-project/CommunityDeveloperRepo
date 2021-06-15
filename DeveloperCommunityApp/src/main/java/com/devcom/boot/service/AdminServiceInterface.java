@@ -15,4 +15,6 @@ public interface AdminServiceInterface {
 	 List<Admin> getAllAdmins();
 	Optional<Admin>  getAdminById(Integer adminId);
 	Optional<Developer>  getDeveloperById(Integer devId);
+	
+	Developer  validateDeveloperById(Integer devId);
 }

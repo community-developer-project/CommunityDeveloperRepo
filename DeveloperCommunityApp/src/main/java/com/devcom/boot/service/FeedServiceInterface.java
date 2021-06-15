@@ -16,6 +16,8 @@ public interface FeedServiceInterface {
 	
 	List<Feed> getFeedByTopic(String topic);
 	
+	List<Feed> getFeedByKeyword(String keyword);
+	
 	Optional<Feed> getFeedById(int feedId);
 	
 	Optional<Feed> deleteFeedById(int feedId);

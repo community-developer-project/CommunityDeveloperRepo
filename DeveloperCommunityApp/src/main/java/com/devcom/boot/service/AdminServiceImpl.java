@@ -16,7 +16,6 @@ import com.devcom.boot.entity.Admin;
 import com.devcom.boot.entity.Developer;
 import com.devcom.boot.entity.User;
 import com.devcom.boot.exception.AdminNotFoundException;
-import com.devcom.boot.exception.DeveloperNotFoundException;
 import com.devcom.boot.exception.UserNotFoundException;
 import com.devcom.boot.repository.AdminRepository;
 import com.devcom.boot.repository.DeveloperRepository;
@@ -41,9 +40,33 @@ public class AdminServiceImpl implements AdminServiceInterface{
 	
 	public Optional<Developer> getDeveloperById(Integer devId) {
 		Optional<Developer> developer = devRepo.findById(devId);
-		if(!developer.isPresent())
-			throw new DeveloperNotFoundException("Developer With Id "+ devId+" Not Found");
+		
+//		  if(!developer.isPresent()) throw new
+//		  DeveloperNotFoundException("Developer With Id "+ devId+" Not Found");
+		 
 		return developer;
+	}
+	
+	
+	@Override
+	public Developer validateDeveloperById(Integer devId) {
+		Developer exists = devRepo.findByDevId(devId);
+		 if(exists == null)
+		throw  new AdminNotFoundException("Devloper With Id "+ devId+" Not Found");
+
+	boolean value = exists.getIsVerified();
+	
+		 if(value) {
+			  
+			  exists.setIsVerified(false);
+		 	  devRepo.save(exists);
+		 }
+		 else 
+			 exists.setIsVerified(true);
+		 		devRepo.save(exists);
+		return exists;
+		
+		
 	}
 	
 }
