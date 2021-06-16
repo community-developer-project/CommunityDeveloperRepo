@@ -17,4 +17,5 @@ public interface AdminServiceInterface {
 	Optional<Developer>  getDeveloperById(Integer devId);
 	
 	Developer  validateDeveloperById(Integer devId);
+	Developer  invalidateDeveloperById(Integer devId);
 }

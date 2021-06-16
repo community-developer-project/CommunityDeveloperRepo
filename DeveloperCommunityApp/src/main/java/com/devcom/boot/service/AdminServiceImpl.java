@@ -53,7 +53,25 @@ public class AdminServiceImpl implements AdminServiceInterface{
 		Developer exists = devRepo.findByDevId(devId);
 		 if(exists == null)
 		throw  new AdminNotFoundException("Devloper With Id "+ devId+" Not Found");
-
+	boolean value = exists.getIsVerified();
+	
+		 if(!value) {
+			  
+			  exists.setIsVerified(true);
+		 	  devRepo.save(exists);
+		 }
+		 else 
+			 throw new AdminNotFoundException("Devloper With Id "+ devId+" Not Found");
+			 
+		return exists;
+			
+	}
+	
+	@Override
+	public Developer invalidateDeveloperById(Integer devId) {
+		Developer exists = devRepo.findByDevId(devId);
+		 if(exists == null)
+		throw  new AdminNotFoundException("Devloper With Id "+ devId+" Not Found");
 	boolean value = exists.getIsVerified();
 	
 		 if(value) {
@@ -61,11 +79,9 @@ public class AdminServiceImpl implements AdminServiceInterface{
 		 	  devRepo.save(exists);
 		 }
 		 else 
-			 exists.setIsVerified(true);
-		 		devRepo.save(exists);
+			 throw new AdminNotFoundException("Devloper With Id "+ devId+" Not Found");
 		return exists;
-		
-		
+				
 	}
 	
 }
