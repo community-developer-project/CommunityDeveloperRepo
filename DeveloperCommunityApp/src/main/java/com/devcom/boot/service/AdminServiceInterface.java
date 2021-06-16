@@ -17,8 +17,5 @@ public interface AdminServiceInterface {
 	Optional<Developer>  getDeveloperById(Integer devId);
 	
 	Developer  validateDeveloperById(Integer devId);
-<<<<<<< Updated upstream
-=======
 	Developer  invalidateDeveloperById(Integer devId);
->>>>>>> Stashed changes
 }

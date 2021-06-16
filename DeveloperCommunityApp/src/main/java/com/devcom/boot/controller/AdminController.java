@@ -52,9 +52,6 @@ public class AdminController {
 		return new ResponseEntity<Object>(developer,HttpStatus.OK);
 		
 	}
-<<<<<<< Updated upstream
-
-=======
 	
 	@GetMapping("getDev/{devId}/Invalidate")
 	public ResponseEntity<Object> invalidateDeveloper(@PathVariable("devId") Integer devId){ 
@@ -63,5 +60,4 @@ public class AdminController {
 		
 	}
 	
->>>>>>> Stashed changes
 }
