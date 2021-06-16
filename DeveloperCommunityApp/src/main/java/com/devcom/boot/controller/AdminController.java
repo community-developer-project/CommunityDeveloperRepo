@@ -52,5 +52,16 @@ public class AdminController {
 		return new ResponseEntity<Object>(developer,HttpStatus.OK);
 		
 	}
+<<<<<<< Updated upstream
 
+=======
+	
+	@GetMapping("getDev/{devId}/Invalidate")
+	public ResponseEntity<Object> invalidateDeveloper(@PathVariable("devId") Integer devId){ 
+		Developer developer = service.invalidateDeveloperById(devId);
+		return new ResponseEntity<Object>(developer,HttpStatus.OK);
+		
+	}
+	
+>>>>>>> Stashed changes
 }
