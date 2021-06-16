@@ -32,5 +32,15 @@ public class UserServiceImpl implements UserServiceInterface{
 		return user;
 	}
 
+	@Override
+	public String checkLogin(User userCredentials) {
+		User found = userRepo.findByUserIdAndPassword(userCredentials.getUserId(), userCredentials.getPassword());
+		
+		if(found == null)
+			throw new UserNotFoundException("InCorrect User Name Or Password");
+		
+		return "Succesfully Logged In!!!";
+	}
+
 
 }

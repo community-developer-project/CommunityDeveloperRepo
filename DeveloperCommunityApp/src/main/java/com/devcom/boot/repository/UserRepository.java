@@ -9,4 +9,6 @@ import com.devcom.boot.entity.User;
 @Repository
 public interface UserRepository extends CrudRepository<User,String> {
 
+	
+	User findByUserIdAndPassword(String userName,String password);
 }

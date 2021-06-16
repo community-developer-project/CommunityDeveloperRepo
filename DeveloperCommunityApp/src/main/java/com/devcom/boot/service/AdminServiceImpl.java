@@ -57,7 +57,6 @@ public class AdminServiceImpl implements AdminServiceInterface{
 	boolean value = exists.getIsVerified();
 	
 		 if(value) {
-			  
 			  exists.setIsVerified(false);
 		 	  devRepo.save(exists);
 		 }

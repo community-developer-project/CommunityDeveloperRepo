@@ -13,4 +13,6 @@ public interface UserServiceInterface {
 	List<User>getAllUsers();
 	
 	Optional<User>  getUserById(String UserId);
+	
+	String checkLogin(User userCredentials);
 }

@@ -17,7 +17,6 @@ public interface FeedRepository extends JpaRepository<Feed,Integer> {
 	
 	List<Feed> findAllByTopic(String topic);
 	
-	
 	@Query("SELECT b FROM Feed b WHERE b.query like %:keyword%")
 	List<Feed> findByKeyword(@Param("keyword") String keyword);
 
