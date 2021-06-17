@@ -12,6 +12,9 @@ import com.devcom.boot.entity.User;
 @Service
 public interface FeedServiceInterface {
 	
+	
+	List<Feed> getAllFeed();
+	
 	List<Feed> getFeedByDeveloperId(int feedId);
 	
 	List<Feed> getFeedByTopic(String topic);

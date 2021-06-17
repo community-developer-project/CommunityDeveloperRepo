@@ -27,7 +27,7 @@ public class FeedServiceImpl implements FeedServiceInterface {
 	@Override
 	public Optional<Feed> saveFeed(Feed feed) {
 		Optional<Feed> existing = feedRepo.findById(feed.getFeedId());
-		
+
 		if(!existing.isPresent()) {
 			feedRepo.save(feed);
 			return existing;
@@ -38,7 +38,6 @@ public class FeedServiceImpl implements FeedServiceInterface {
 
 	@Override
 	public Optional<Feed> deleteFeedById(int feedId) {
-
 		Optional<Feed> feed = feedRepo.findById(feedId);
 		if(!feed.isPresent())
 			throw new FeedNotFoundException("Feed With Id "+ feedId +" Not Found");
@@ -58,22 +57,39 @@ public class FeedServiceImpl implements FeedServiceInterface {
 	}
 
 	@Override
-	public List<Feed> getFeedByDeveloperId(int feedId) {
-		List<Feed> listOfFeedByDev = (List<Feed>) feedRepo.findAllByDeveloper_DevId(feedId);
+	public List<Feed> getFeedByDeveloperId(int devId) {
+		List<Feed> listOfFeedByDev = (List<Feed>) feedRepo.findAllByDeveloper_DevId(devId);
+		
+		if(listOfFeedByDev.isEmpty())
+			throw new FeedNotFoundException(" NO FEED  FOR THE DEVELOPER "+ devId);
 		return listOfFeedByDev;
 	}
 
 	@Override
 	public List<Feed> getFeedByTopic(String topic) {
 		List<Feed> listOfFeedByTopic = (List<Feed>) feedRepo.findAllByTopic(topic);
+
+		if(listOfFeedByTopic.isEmpty())
+			throw new FeedNotFoundException(" NO FEED FOR THE TOPIC "+ topic);
 		return listOfFeedByTopic;
 	}
 
 	@Override
 	public List<Feed> getFeedByKeyword(String keyword) {
 		List<Feed> listOfFeedByKeyword = (List<Feed>) feedRepo.findByKeyword(keyword);
-		return listOfFeedByKeyword;
 		
+		if(listOfFeedByKeyword.isEmpty())
+			throw new FeedNotFoundException(" NO FEED WITH KEYWORD "+ keyword);
+		return listOfFeedByKeyword;
+
+	}
+
+	@Override
+	public List<Feed> getAllFeed() {
+		List<Feed> allFeed = feedRepo.findAll();
+		if(allFeed.isEmpty())
+			throw new FeedNotFoundException("NO FEED!!!");
+		return allFeed;
 	}
 
 

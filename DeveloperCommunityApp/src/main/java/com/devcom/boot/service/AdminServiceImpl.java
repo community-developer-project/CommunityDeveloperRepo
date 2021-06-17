@@ -24,6 +24,7 @@ import com.devcom.boot.repository.DeveloperRepository;
 public class AdminServiceImpl implements AdminServiceInterface{
 	
 	@Autowired AdminRepository adminRepo;
+	
 	@Autowired DeveloperRepository devRepo;
 	
 	public List<Admin> getAllAdmins() {
@@ -61,7 +62,7 @@ public class AdminServiceImpl implements AdminServiceInterface{
 		 	  devRepo.save(exists);
 		 }
 		 else 
-			 throw new AdminNotFoundException("Devloper With Id "+ devId+" Not Found");
+			 throw new AdminNotFoundException("Devloper With Id "+ devId+" Is Alreday Validated");
 			 
 		return exists;
 			
@@ -79,7 +80,7 @@ public class AdminServiceImpl implements AdminServiceInterface{
 		 	  devRepo.save(exists);
 		 }
 		 else 
-			 throw new AdminNotFoundException("Devloper With Id "+ devId+" Not Found");
+			 throw new AdminNotFoundException("Devloper With Id "+ devId+" Is Already Invalid");
 		return exists;
 				
 	}
