@@ -8,7 +8,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.devcom.boot.entity.Developer;
 import com.devcom.boot.entity.Feed;
 
 @Repository

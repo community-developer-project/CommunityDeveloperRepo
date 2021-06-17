@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.devcom.boot.entity.Admin;
 import com.devcom.boot.entity.Developer;
-import com.devcom.boot.entity.Feed;
 
 
 @Service
@@ -19,10 +18,4 @@ public interface AdminServiceInterface {
 	
 	Developer  validateDeveloperById(Integer devId);
 	Developer  invalidateDeveloperById(Integer devId);
-	
-	Developer  blockDeveloperById(Integer devId);
-	Developer  unblockDeveloperById(Integer devId);
-	
-	Optional<Feed>  deleteFeedAdmin(Integer feedId);
-	
 }
