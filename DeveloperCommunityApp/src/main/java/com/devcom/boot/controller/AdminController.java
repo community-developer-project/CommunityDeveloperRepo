@@ -6,13 +6,17 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devcom.boot.entity.Admin;
 import com.devcom.boot.entity.Developer;
+import com.devcom.boot.entity.Feed;
 import com.devcom.boot.service.AdminServiceInterface;
 
 @RestController
@@ -52,12 +56,23 @@ public class AdminController {
 		return new ResponseEntity<Object>(developer,HttpStatus.OK);
 		
 	}
-	
-	@GetMapping("getDev/{devId}/Invalidate")
-	public ResponseEntity<Object> invalidateDeveloper(@PathVariable("devId") Integer devId){ 
-		Developer developer = service.invalidateDeveloperById(devId);
+
+	@DeleteMapping("{feedId}/remove")
+	public ResponseEntity<Object> deleteFeed(@PathVariable("feedId") Integer feedId){
+		 service.deleteFeedAdmin(feedId);
+	return new ResponseEntity<Object>("Feed Removed Successfully",HttpStatus.OK);
+	}
+	@GetMapping("getDev/{devId}/block")
+	public ResponseEntity<Object> blockDeveloper(@PathVariable("devId") Integer devId){ 
+		Developer developer = service.blockDeveloperById(devId);
 		return new ResponseEntity<Object>(developer,HttpStatus.OK);
 		
 	}
 	
+	@GetMapping("getDev/{devId}/unBlock")
+	public ResponseEntity<Object> unblockDeveloper(@PathVariable("devId") Integer devId){ 
+		Developer developer = service.unblockDeveloperById(devId);
+		return new ResponseEntity<Object>(developer,HttpStatus.OK);
+		
+	}
 }
