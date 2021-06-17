@@ -12,6 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -25,10 +30,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Feed{
 
 	@Id
-	@Column(name="feed_id")
+	@Column(name="feed_id",nullable = false)
+	@Min(1000)
+	@Max(2000)
 	private	int feedId;
 
 	@Column(name="query")
+	@NotBlank(message = "Query is mandatory")
 	private String query;
 
 	@Column(name="feed_date")
@@ -44,6 +52,7 @@ public class Feed{
     private LocalDateTime updateDateTime;
 
 	@Column(name="topic")
+	@NotBlank(message = "Topic is mandatory")
 	private String topic;
 
 	@Column(name="relevance")
@@ -120,10 +129,6 @@ public class Feed{
 	public void setTotalComments(int totalComments) {
 		this.totalComments = totalComments;
 	}
-	
-	
-	
-	
 	
 	
 	public LocalDateTime getUpdateDateTime() {
