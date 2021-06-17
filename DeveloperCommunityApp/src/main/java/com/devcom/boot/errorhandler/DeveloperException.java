@@ -1,4 +1,4 @@
-package com.devcom.boot.exception;
+package com.devcom.boot.errorhandler;
 
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import com.devcom.boot.exception.DeveloperAlreadyExistsException;
+import com.devcom.boot.exception.UnknownDeveloperException;
 
 
 @ControllerAdvice
