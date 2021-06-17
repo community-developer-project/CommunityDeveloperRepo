@@ -1,7 +1,7 @@
 package com.devcom.boot.entity;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -30,19 +33,19 @@ public class Response {
 	private LocalDate respDate;
 
 	@Column(name="resp_time")
-	private LocalTime respTime;
+	@CreationTimestamp
+	private LocalDateTime respTime;
 
 	@Column(name="accuracy")
 	private int accuracy;
 
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name="fk_dev_id")
-	@JsonIgnore
+	@JsonBackReference
 	private Developer developer;
 
 	@ManyToOne
 	@JoinColumn(name = "fk_feed_id")
-	@JsonIgnore
 	private Feed feed;
 
 	public int getRespId() {
@@ -63,10 +66,10 @@ public class Response {
 	public void setRespDate(LocalDate respDate) {
 		this.respDate = respDate;
 	}
-	public LocalTime getRespTime() {
+	public LocalDateTime getRespTime() {
 		return respTime;
 	}
-	public void setRespTime(LocalTime respTime) {
+	public void setRespTime(LocalDateTime respTime) {
 		this.respTime = respTime;
 	}
 	public int getAccuracy() {

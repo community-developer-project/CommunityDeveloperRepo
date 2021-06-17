@@ -2,6 +2,9 @@ package com.devcom.boot.controller;
 
 import java.util.List;
 import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +20,14 @@ import com.devcom.boot.entity.User;
 import com.devcom.boot.service.UserServiceInterface;
 
 @RestController
-@RequestMapping("developerCommunity")
+@RequestMapping("developerCommunity/user")
 public class UserController {
 	@Autowired
 	UserServiceInterface service;
 	
 	
 	@PostMapping("userLogin")
-	public ResponseEntity<String> saveFeed(@RequestBody User userCredentials){
+	public ResponseEntity<String> saveFeed(@Valid @RequestBody User userCredentials){
 		String response =  service.checkLogin(userCredentials);
 	return new ResponseEntity<String>(response,HttpStatus.OK);
 	}
