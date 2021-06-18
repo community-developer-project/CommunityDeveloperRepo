@@ -1,7 +1,11 @@
 package com.devcom.boot.controller;
 
+import java.io.IOException;
 import java.util.List;				
 import java.util.Optional;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.devcom.boot.entity.Admin;
 import com.devcom.boot.entity.Developer;
 import com.devcom.boot.entity.Feed;
+import com.devcom.boot.entity.Response;
 import com.devcom.boot.entity.User;
 import com.devcom.boot.service.AdminServiceInterface;
 
@@ -87,6 +92,21 @@ public class AdminController {
 	return new ResponseEntity<Object>("Feed Removed Successfully",HttpStatus.OK);
 	}
 	
+//	------------------List of response--------------------------
+	@GetMapping("getResponse") 											
+	public ResponseEntity<?> getResponse(){
+
+		List<Response> list = (List<Response>) service.getAllResponse();
+		return new ResponseEntity<Object>(list,HttpStatus.OK);
+	}
+	
+//	------------------Remove a response--------------------------
+	@DeleteMapping("getResponse/{respId}/remove")
+	public ResponseEntity<Object> deleteResponse(@PathVariable("respId") Integer respId){
+		 service.deleteResponseAdmin(respId);
+	return new ResponseEntity<Object>("Response Removed Successfully",HttpStatus.OK);
+	}
+	
 //	------------------Block/Unblock a developer--------------------------
 	@GetMapping("getDev/{devId}/{choice}")
 	public ResponseEntity<Object> blockDeveloper(@PathVariable("devId") Integer devId,@PathVariable("choice") String choice){ 
@@ -96,18 +116,32 @@ public class AdminController {
 	}
 	
 	
+//	------------------List of Blocked developers--------------------------
+	@GetMapping("getDev/status/{choice}")
+	public ResponseEntity<Object> blockDeveloper(@PathVariable("choice") String choice){ 
+		List<Developer> list = (List<Developer>) service.getAllIsBlocked(choice);
+		return new ResponseEntity<Object>(list,HttpStatus.OK);
+		
+	}
+	
 //	------------------send mail to the developer when verified--------------------------
-	@GetMapping(value = "/simple-email/{user-email}")
-    public @ResponseBody ResponseEntity<?> sendSimpleEmail(@PathVariable("user-email") String email) {
-
-        try {
-            service.sendSimpleEmail(email, "Welcome", "This is a welcome email for your!!");
-        } catch (MailException mailException) {
- 
-//            LOG.error("Error while sending out email..{}", mailException.getStackTrace());
-            return new ResponseEntity<>("Unable to send email", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        return new ResponseEntity<>("Please check your inbox", HttpStatus.OK);
-    }
+//	@GetMapping(value = "/simple-email/{user-email}")
+//    public @ResponseBody ResponseEntity<?> sendSimpleEmail(@PathVariable("user-email") String email) {
+//
+//        try {
+//            service.sendSimpleEmail(email, "Welcome", "This is a welcome email for your!!");
+//        } catch (MailException mailException) {
+// 
+////            LOG.error("Error while sending out email..{}", mailException.getStackTrace());
+//            return new ResponseEntity<>("Unable to send email", HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//
+//        return new ResponseEntity<>("Please check your inbox", HttpStatus.OK);
+//    }
+//	
+//	@RequestMapping(value = "/sendemail")
+//	public String sendEmail() throws AddressException, MessagingException, IOException {
+//	   sendEmail();
+//	   return "Email sent successfully";   
+//	}
 }
