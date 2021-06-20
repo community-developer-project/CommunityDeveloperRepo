@@ -43,17 +43,20 @@ public class DeveloperServiceImpl implements IDeveloperService {
 
 	@Override
 	public String statusUpdate(Developer dev) {
-		boolean checkStatus = dev.getIsBlocked();
-		if (checkStatus)
-			return "Developer With Id " + dev.getDevId() + " is Blocked";
-		else
-			return "Developer With Id " + dev.getDevId() + " Not Blocked";
+		boolean checkStatus = dev.getIsVerified();
+		dev.setIsVerified(checkStatus);
+		boolean checkStatus2 = dev.getIsBlocked();
+		dev.setIsBlocked(checkStatus2);
+		System.out.println(checkStatus);
+		System.out.println(checkStatus2);
+		return "Status of Developer With Id " + dev.getDevId() + " Updated";
+
 	}
 
 	public Optional<Developer> getDeveloper(int devId) throws UnknownDeveloperException {
 		Optional<Developer> dev = devRepo.findById(devId);
 		if (!dev.isPresent())
-			throw new UnknownDeveloperException("Developer With Id " + devId + " Not Found");
+			throw new UnknownDeveloperException("Developer With Id " + devId + " Not Exist");
 		return dev;
 	}
 

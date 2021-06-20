@@ -3,6 +3,8 @@ package com.devcom.boot.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,20 +31,23 @@ public class DeveloperController {
 	@Autowired
 	DeveloperServiceImpl service;
 
+	//---------------------------------Adding Developer Details to the Database-----------------------------------
 	@PostMapping("/addDeveloper")
-	public ResponseEntity<String> addDeveloper(@RequestBody Developer dev) throws DeveloperAlreadyExistsException {
+	public ResponseEntity<String> addDeveloper(@Valid @RequestBody Developer dev) throws DeveloperAlreadyExistsException {
 		service.addDeveloper(dev);
 		return new ResponseEntity<String>("Developer Added Successfully", HttpStatus.OK);
 
 	}
 
+	//------------------------------Retrieve Particular Developer------------------------------------
 	@GetMapping("/getDeveloperById/{devId}")
 	public ResponseEntity<Object> getDeveloper(@PathVariable int devId) throws UnknownDeveloperException {
 		Optional<Developer> developer = service.getDeveloper(devId);
 		return new ResponseEntity<Object>(developer.get(), HttpStatus.OK);
 
 	}
-
+	
+	//----------------------------Updating the Status of The Developer---------------------------------------
 	@PostMapping("/statusUpdate")
 	public ResponseEntity<String> statusUpdate(@RequestBody Developer dev) {
 		service.statusUpdate(dev);
@@ -50,6 +55,7 @@ public class DeveloperController {
 
 	}
 
+	//---------------------------Updating the Developer Details---------------------------------------
 	@PutMapping("/editDeveloper/{devId}")
 	public ResponseEntity<String> editDeveloper(@RequestBody Developer dev, @PathVariable int devId)
 			throws UnknownDeveloperException {
@@ -57,7 +63,7 @@ public class DeveloperController {
 		return new ResponseEntity<String>("Developer Updated Succesfully", HttpStatus.OK);
 
 	}
-
+	//-------------------------------List of All Developers--------------------------------
 	@GetMapping("/getAllDeveloper")
 	public ResponseEntity<?> getAllDevelopers() {
 		List<Developer> list = (List<Developer>) service.getAllDevelopers();
